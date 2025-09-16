@@ -199,13 +199,24 @@ public class LoginController {
     //Validate registration logic
     public String validateRegistrationInputs(String username, String email, String role,
                                              String password, String confirm, String avatarDisplay){
-        if (username.isBlank() || email.isBlank() || role.isBlank() || password.isBlank() || confirm.isBlank()) {
+        if (username.isBlank() && email.isBlank() && role.isBlank() && password.isBlank() && confirm.isBlank()) {
+            error("Please fill in all the fields");
             return "Please fill in all the fields";
         }
         if (!password.equals(confirm)) {
             error("Passwords do not match.");
             return "Passwords do not match";
         }
+        if(username.isBlank()){
+            error("Username is blank or invalid");
+            return "Username is blank or invalid";
+        }
+        if(email.isBlank()){
+            error("Email is blank or invalid");
+            return "Email is blank or invalid";
+        }
+
+
         // Extract Emoji same way up
         String avatarEmoji =null;
         if(avatarDisplay != null && !avatarDisplay.isBlank()){

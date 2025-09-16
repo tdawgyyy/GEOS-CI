@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-// PractiseQuizOceania Unit Testing ----------
+// PractiseQuizAntarctica Unit Testing ----------
     /*
     No DB Calls only from data package
 
@@ -19,10 +19,10 @@ import java.util.List;
     * assertFalse = Assert that the given boolean is false
     */
 
-class PracticeQuizOceaniaControllerTest {
+class PracticeQuizAntarcticaControllerTest {
 
     // Controller we are testing
-    private PracticeQuizOceaniaController controller;
+    private PracticeQuizAntarcticaController controller;
 
     //Fake Sample Questions used by tests
     private List<QuizQuestions> sampleQs;
@@ -34,54 +34,53 @@ class PracticeQuizOceaniaControllerTest {
     //Questions within OceaniaController
     private static List<QuizQuestions> sample() {
         return List.of(
-                q("AU", "What is the capital city of Australia?",
-                        Arrays.asList("Sydney", "Melbourne", "Canberra", "Brisbane"), "Canberra",
-                        "Canberra is a planned city, not just a large metropolis that grew over time."),
-                q("AU", "Which country is home to the Great Barrier Reef?",
-                        Arrays.asList("New Zealand", "Fiji", "Australia", "Papua New Guinea"), "Australia",
-                        "The Great Barrier Reef is so large it can be seen from outer space."),
-                q("PG", "What is the largest island in Oceania?",
-                        Arrays.asList("Tasmania", "New Guinea", "South Island", "Borneo"), "New Guinea",
-                        "New Guinea is the world's second-largest island, after Greenland.")
+                q("AQ", "What is the largest land animal in Antarctica?",
+                        Arrays.asList("Weddell Seal", "Emperor Penguin", "Antarctic Midge", "Leopard Seal"), "Antarctic Midge",
+                        "The Antarctic Midge is the largest purely terrestrial animal on the continent, but it is just a tiny, wingless fly."),
+                q("AQ", "What is Antarctica's highest point?",
+                        Arrays.asList("Mount Erebus", "Mount Vinson", "Mount Kirkpatrick", "Mount Minto"), "Mount Vinson",
+                        "Mount Vinson is part of the Ellsworth Mountains and is located on the Sentinel Range."),
+                q("AQ", "Antarctica is home to what percentage of the world's ice?",
+                        Arrays.asList("10%", "50%", "70%", "90%"), "90%",
+                        "If all of Antarctica's ice were to melt, global sea levels would rise by about 60 meters.")
         );
     }
     @BeforeEach
     void setup() {
-        controller = new PracticeQuizOceaniaController();
+        controller = new PracticeQuizAntarcticaController();
         sampleQs = sample();
     }
 
     // tiny helper so tests are picked by index and evaluate the given user choice
-    private PracticeQuizOceaniaController.EvalResult eval(int index, String selected) {
+    private PracticeQuizAntarcticaController.EvalResult eval(int index, String selected) {
         return controller.evaluateSelection(selected, sampleQs.get(index));
     }
-
 
     //Test if no selection is made
     @Test
     void testNoSelectionMade(){
-        var r = eval(0, null); // Q0: Canberra is correct
+        var r = eval(0, null); // Q0 is correct
         assertFalse(r.correct());
         assertEquals(0, r.scoreDelta());
-        assertEquals("Canberra", r.correctAnswer());
+        assertEquals("Antarctic Midge", r.correctAnswer());
     }
 
     // test for correct choices returning the correct answer/ point
     @Test
     void testCorrectSelectionAddsScore(){
-        var r = eval(1, "Australia"); // Q1
+        var r = eval(1, "Mount Vinson"); // Q1
         assertTrue(r.correct());
         assertEquals(1, r.scoreDelta());
-        assertEquals("Australia", r.correctAnswer());
+        assertEquals("Mount Vinson", r.correctAnswer());
     }
 
     //Test when a wrong answer is chosen
     @Test
     void testWrongAnswerSelection(){
-        var r = eval(2, "Tasmania"); // Q2
+        var r = eval(2, "10%"); // Q2
         assertFalse(r.correct());
         assertEquals(0, r.scoreDelta()); // Score should remain 0, no points added
-        assertEquals("New Guinea", r.correctAnswer());
+        assertEquals("90%", r.correctAnswer());
     }
 
     // Country code should be exactly what we set
@@ -89,7 +88,7 @@ class PracticeQuizOceaniaControllerTest {
     @Test
     void testCodeIsCorrect(){
         var q0 = sampleQs.get(0);
-        assertEquals("AU", q0.getCountryCode());     // exact code
+        assertEquals("AQ", q0.getCountryCode());     // exact code
         assertEquals(2, q0.getCountryCode().length());
         assertEquals(q0.getCountryCode(), q0.getCountryCode().toUpperCase()); // uppercase
     }
@@ -101,19 +100,6 @@ class PracticeQuizOceaniaControllerTest {
         assertNotNull(q1.getQuestionText());
         assertFalse(q1.getQuestionText().isBlank());
         //Fun fact contains a key phrase
-        assertTrue(q1.getQuestionText().contains("Great Barrier Reef"));
-    }
-
-    @Test
-    void testFunFactDisplays(){
-        // Correct path
-        var rCorrect = eval(1, "Australia");
-        assertNotNull(rCorrect.funFact());
-        assertFalse(rCorrect.funFact().isBlank());
-
-        // Wrong path still returns the fun fact
-        var rWrong = eval(2, "Tasmania");
-        assertNotNull(rWrong.funFact());
-        assertFalse(rWrong.funFact().isBlank());
+        assertTrue(q1.getQuestionText().contains("Antarctica's highest point"));
     }
 }

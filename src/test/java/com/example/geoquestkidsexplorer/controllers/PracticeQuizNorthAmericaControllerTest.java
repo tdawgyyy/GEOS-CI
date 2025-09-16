@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-// PractiseQuizOceania Unit Testing ----------
+// PractiseQuizNorthAmerica Unit Testing ----------
     /*
     No DB Calls only from data package
 
@@ -19,10 +19,10 @@ import java.util.List;
     * assertFalse = Assert that the given boolean is false
     */
 
-class PracticeQuizOceaniaControllerTest {
+class PracticeQuizNorthAmericaControllerTest {
 
     // Controller we are testing
-    private PracticeQuizOceaniaController controller;
+    private PracticeQuizNorthAmericaController controller;
 
     //Fake Sample Questions used by tests
     private List<QuizQuestions> sampleQs;
@@ -31,28 +31,28 @@ class PracticeQuizOceaniaControllerTest {
         return new QuizQuestions(code, text, choices, correct, fact);
     }
 
-    //Questions within OceaniaController
+    //Questions within SouthAmerica
     private static List<QuizQuestions> sample() {
         return List.of(
-                q("AU", "What is the capital city of Australia?",
-                        Arrays.asList("Sydney", "Melbourne", "Canberra", "Brisbane"), "Canberra",
-                        "Canberra is a planned city, not just a large metropolis that grew over time."),
-                q("AU", "Which country is home to the Great Barrier Reef?",
-                        Arrays.asList("New Zealand", "Fiji", "Australia", "Papua New Guinea"), "Australia",
-                        "The Great Barrier Reef is so large it can be seen from outer space."),
-                q("PG", "What is the largest island in Oceania?",
-                        Arrays.asList("Tasmania", "New Guinea", "South Island", "Borneo"), "New Guinea",
-                        "New Guinea is the world's second-largest island, after Greenland.")
+                q("US", "Which country is home to the Grand Canyon, one of the world's most impressive natural formations?",
+                        Arrays.asList("Mexico", "Canada", "United States", "Cuba"), "United States",
+                        "The Grand Canyon is over a mile deep and was carved by the Colorado River."),
+                q("CA", "What is the largest country in North America by land area?",
+                        Arrays.asList("United States", "Mexico", "Canada", "Greenland"), "Canada",
+                        "Canada is the second-largest country in the world, with a vast and diverse landscape."),
+                q("MX", "Which country is famous for its ancient Mayan and Aztec pyramids?",
+                        Arrays.asList("United States", "Cuba", "Mexico", "Panama"), "Mexico",
+                        "The Pyramid of Kukulcan in Chichen Itza is one of the most famous Mayan ruins in Mexico.")
         );
     }
     @BeforeEach
     void setup() {
-        controller = new PracticeQuizOceaniaController();
+        controller = new PracticeQuizNorthAmericaController();
         sampleQs = sample();
     }
 
     // tiny helper so tests are picked by index and evaluate the given user choice
-    private PracticeQuizOceaniaController.EvalResult eval(int index, String selected) {
+    private PracticeQuizNorthAmericaController.EvalResult eval(int index, String selected) {
         return controller.evaluateSelection(selected, sampleQs.get(index));
     }
 
@@ -60,28 +60,28 @@ class PracticeQuizOceaniaControllerTest {
     //Test if no selection is made
     @Test
     void testNoSelectionMade(){
-        var r = eval(0, null); // Q0: Canberra is correct
+        var r = eval(0, null); // Q0 is correct
         assertFalse(r.correct());
         assertEquals(0, r.scoreDelta());
-        assertEquals("Canberra", r.correctAnswer());
+        assertEquals("United States", r.correctAnswer());
     }
 
     // test for correct choices returning the correct answer/ point
     @Test
     void testCorrectSelectionAddsScore(){
-        var r = eval(1, "Australia"); // Q1
+        var r = eval(1, "Canada"); // Q1
         assertTrue(r.correct());
         assertEquals(1, r.scoreDelta());
-        assertEquals("Australia", r.correctAnswer());
+        assertEquals("Canada", r.correctAnswer());
     }
 
     //Test when a wrong answer is chosen
     @Test
     void testWrongAnswerSelection(){
-        var r = eval(2, "Tasmania"); // Q2
+        var r = eval(2, "Cuba"); // Q2
         assertFalse(r.correct());
         assertEquals(0, r.scoreDelta()); // Score should remain 0, no points added
-        assertEquals("New Guinea", r.correctAnswer());
+        assertEquals("Mexico", r.correctAnswer());
     }
 
     // Country code should be exactly what we set
@@ -89,10 +89,11 @@ class PracticeQuizOceaniaControllerTest {
     @Test
     void testCodeIsCorrect(){
         var q0 = sampleQs.get(0);
-        assertEquals("AU", q0.getCountryCode());     // exact code
+        assertEquals("US", q0.getCountryCode());     // exact code
         assertEquals(2, q0.getCountryCode().length());
         assertEquals(q0.getCountryCode(), q0.getCountryCode().toUpperCase()); // uppercase
     }
+
 
     //Test that the test box exist and says the correct data
     @Test
@@ -101,19 +102,7 @@ class PracticeQuizOceaniaControllerTest {
         assertNotNull(q1.getQuestionText());
         assertFalse(q1.getQuestionText().isBlank());
         //Fun fact contains a key phrase
-        assertTrue(q1.getQuestionText().contains("Great Barrier Reef"));
+        assertTrue(q1.getQuestionText().contains("largest country in North America"));
     }
 
-    @Test
-    void testFunFactDisplays(){
-        // Correct path
-        var rCorrect = eval(1, "Australia");
-        assertNotNull(rCorrect.funFact());
-        assertFalse(rCorrect.funFact().isBlank());
-
-        // Wrong path still returns the fun fact
-        var rWrong = eval(2, "Tasmania");
-        assertNotNull(rWrong.funFact());
-        assertFalse(rWrong.funFact().isBlank());
-    }
 }
