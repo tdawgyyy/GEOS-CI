@@ -40,13 +40,37 @@ public class SouthAmericaController {
             if ("practiceModeTile".equals(tileId)) {
                 loadScene("/com/example/geoquestkidsexplorer/practicequizoceania.fxml", event);
             } else if ("testModeTile".equals(tileId)) {
-                System.out.println("Test Mode Quiz selected!");
+                openQuiz(event, "South America");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void openQuiz(Event event, String continent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/geoquestkidsexplorer/quiz_view.fxml")
+        );
+        Parent root = loader.load();
+
+        // Reuse the existing window
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (stage.getScene() == null) {
+            stage.setScene(new Scene(root, 800, 600));
+        } else {
+            stage.getScene().setRoot(root);
+        }
+        stage.setTitle(continent + " Quiz");
+
+        // Pass data into the quiz controller (optional setStage if your controller uses it)
+        QuizController controller = loader.getController();
+        try {
+            controller.setStage(stage);   // keep Back actions working if your controller expects a Stage
+        } catch (NoSuchMethodError | Exception ignore) { /* ok if not present */ }
+        controller.setContinent(continent); // loads the first question inside controller
+
+        stage.show();
+    }
     /**
      * A private helper method to load a new FXML scene and transition to it.
      * This version is more flexible and can accept any type of Event.
@@ -63,4 +87,18 @@ public class SouthAmericaController {
         stage.show();
     }
 
+    @FXML
+    private void handleFlashcards(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/geoquestkidsexplorer/FlashcardsPage.fxml")
+        );
+        Parent root = loader.load();
+
+        FlashcardsController controller = loader.getController();
+        controller.setRegion("South America");
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(root);
+        stage.show();
+    }
 }

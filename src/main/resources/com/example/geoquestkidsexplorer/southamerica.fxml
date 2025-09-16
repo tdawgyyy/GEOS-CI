@@ -54,6 +54,10 @@
                                     </Label>
                                 </children>
                             </VBox>
+                            <Button fx:id="flashcardsButton" text="Flashcards" onAction="#handleFlashcards"
+                                    style="-fx-background-color: #ffcdd2; -fx-background-radius: 10; -fx-padding: 12; -fx-text-fill: #000000; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+
                             <!-- Test Mode Quiz Tile -->
                             <VBox fx:id="testModeTile" alignment="CENTER" onMouseClicked="#handleGameModeClick" prefHeight="200.0"
                                   prefWidth="250.0" style="-fx-background-color: #fed7aa; -fx-background-radius: 15;

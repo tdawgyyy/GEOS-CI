@@ -4,6 +4,7 @@ import com.example.geoquestkidsexplorer.database.DatabaseManager;
 import com.example.geoquestkidsexplorer.database.DatabaseManager.CountryQuestion;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -100,5 +101,19 @@ public class QuizController {
 
     private void updateScore() {
         scoreLabel.setText(totalCorrect + "/" + totalAsked);
+    }
+    @FXML
+    private void backToGameModes(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/geoquestkidsexplorer/southamerica.fxml"));
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
