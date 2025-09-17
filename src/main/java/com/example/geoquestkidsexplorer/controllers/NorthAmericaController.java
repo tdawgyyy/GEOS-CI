@@ -41,6 +41,7 @@ public class NorthAmericaController {
                 loadScene("/com/example/geoquestkidsexplorer/practicequizoceania.fxml", event);
             } else if ("testModeTile".equals(tileId)) {
                 // Nikki: insert testpage link and call openTestMethod
+                loadScene("/com/example/geoquestkidsexplorer/testModeAntarctica.fxml", event);
                 System.out.println("Test Mode Quiz selected!");
             }
         } catch (IOException e) {

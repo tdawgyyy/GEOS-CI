@@ -41,7 +41,8 @@ public class SouthAmericaController {
                 loadScene("/com/example/geoquestkidsexplorer/practicequizoceania.fxml", event);
             } else if ("testModeTile".equals(tileId)) {
                 // Nikki: insert testpage link and call openTestMethod
-                openQuiz(event, "South America");
+                loadScene("/com/example/geoquestkidsexplorer/testModeAntarctica.fxml", event);
+                //openQuiz(event, "South America");
             }
         } catch (IOException e) {
             e.printStackTrace();
