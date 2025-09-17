@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="/com/example/geoquestkidsexplorer/styles.css"?>
+
+<!--Import all the JavaFX UI elements that I'll be using-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+
+<!--Root Container-->
+<BorderPane prefHeight="800.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.geoquestkidsexplorer.controllers.TestModeAntarcticaController">
+
+    <!-- Top: Navigation Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="65.0" style="-fx-background-color: #3b82f6; -fx-padding: 10 20;">
+            <children>
+                <!-- Example Back Button (action commented out) -->
+                <!--<Button onAction="#backToGameModes" style="-fx-background-color: #60a5fa; -fx-text-fill: white;
+                               -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 10 15;
+                               -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);"
+                        text="⬅️ Back" />-->
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="questionCounterLabel" text="Question 1 of 10"
+                       style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" style="-fx-background-color: #60a5fa; -fx-background-radius: 25;
+                        -fx-padding: 10 15;">
+                    <children>
+                        <Label text="Score: " style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;" />
+                        <Label fx:id="scoreLabel" text="0" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+    </top>
+
+    <!-- Center: Main Quiz Content -->
+    <center>
+        <VBox alignment="CENTER" spacing="20.0" style="-fx-padding:20;">
+            <children>
+
+                <!-- Question & Image Tile -->
+                <VBox alignment="TOP_CENTER" prefWidth="800.0" spacing="15.0"
+                      style="-fx-background-color: #ffffff; -fx-padding: 20px; -fx-background-radius: 15px;
+                             -fx-border-radius: 15px;">
+                    <children>
+                        <ImageView fx:id="countryImageView" fitWidth="400" fitHeight="250" preserveRatio="true"
+                                   style="-fx-background-color:#f3f4f6; -fx-background-radius:8;" />
+                        <Label fx:id="questionLabel" text="What country is this?" wrapText="true"
+                               style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                        <VBox fx:id="quizOptionsContainer" spacing="15.0"/>
+                    </children>
+                </VBox>
+
+                <!-- Feedback & Fun Fact -->
+                <VBox alignment="CENTER" prefWidth="800.0" spacing="10.0"
+                      style="-fx-background-color: #e0e0e0; -fx-padding: 15px; -fx-background-radius: 15px;
+                             -fx-border-radius: 15px;">
+                    <children>
+                        <Label fx:id="feedbackLabel" text="" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                        <HBox spacing="5.0">
+                            <children>
+<!--                                <Label text="Blank:" style="-fx-font-size: 18px; -fx-font-weight: bold;" />-->
+                                <Label fx:id="funFactLabel" text="" wrapText="true" style="-fx-font-size: 16px;" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <!-- Example Next Question Button (action commented out) -->
+                <!--<Button fx:id="nextQuestionButton" onAction="#nextQuestion" prefWidth="200.0"
+                        style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold;
+                               -fx-font-size: 16px; -fx-background-radius: 5px;" text="Next Question" visible="false" />-->
+
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>
