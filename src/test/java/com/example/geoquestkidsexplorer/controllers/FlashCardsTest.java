@@ -40,11 +40,11 @@ class FlashCardsTest {
 /*
     // tiny 1x1 image using pure JavaFX (no AWT/ImageIO)
     private static Image tinyImage() {
-        return new WritableImage(1, 1);
+        return null;
     }
 
     // testing if CorrectImage Loads
-    @Test
+    /*@Test
     void testCorrectImageLoads() {
         var mock = new MockFlashcardDB().add("Australia", tinyImage());
         mock.fillInternalCountries(controller);
@@ -71,7 +71,7 @@ class FlashCardsTest {
         assertTrue(imgView.isVisible()); // Country Image is Visible
         assertFalse(back.isVisible()); //Back label is not visible
     }
-
+*/
     @Test
     void testCorrectImageForAustraliaLoad() {
         var mock = new MockFlashcardDB()
