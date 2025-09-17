@@ -16,6 +16,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.example.geoquestkidsexplorer.database.MockFlashcardDB;
 
 public class FlashcardsController {
 
@@ -133,4 +134,45 @@ public class FlashcardsController {
         stage.show();
     }
 
+    // FOR UNIT TESTING - Tori
+    // Allows tests to pre-seed countries without DB.
+    // No access modifier and package-private (not visible from app code).
+    // TEST ONLY - attach minimal nodes so tests don't need FXML injection.
+    public void testAttachNodes(
+            javafx.scene.control.Label region,
+            javafx.scene.image.ImageView image,
+            javafx.scene.control.Label back,
+            javafx.scene.layout.StackPane stack) {
+        this.regionLabel = region;
+        this.countryImageView = image;
+        this.backTextLabel = back;
+        this.flashcardStack = stack;
+    }
+
+    // TEST only - seed countries
+    public void testSeed(java.util.List<String> names, java.util.List<javafx.scene.image.Image> images) {
+        countries.clear();
+        currentIndex = 0;
+        isFront = true;
+
+        for (int i = 0; i < names.size(); i++) {
+            countries.add(new Country(names.get(i), images.get(i)));
+        }
+
+        if (!countries.isEmpty()) {
+            showCountry(countries.get(0));
+        }
+        else
+        {
+            backTextLabel.setText("Sorry, no countries yet.");
+            countryImageView.setImage(null);
+            countryImageView.setVisible(false);
+            backTextLabel.setVisible(true);
+        }
+    }
+
+    // TEST ONLY - call next without needing an ActionEvent or reflection
+    public void testNext() {
+        handleNextCountry(null);
+    }
 }

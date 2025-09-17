@@ -20,7 +20,7 @@ class SouthAmericaQuizDataTest {
     @Test
     void questionsHasFourChoices(){
         //Get the practise quesations from SouthAmericaQuizData and store it in list questions
-        List<QuizQuestions> questions = OceaniaQuizData.getPracticeQuestions();
+        List<QuizQuestions> questions = SouthAmericaQuizData.getPracticeQuestions();
 
         //Assert that the box/label should not be empty
         assertFalse(questions.isEmpty(), "Question box should not be empty");

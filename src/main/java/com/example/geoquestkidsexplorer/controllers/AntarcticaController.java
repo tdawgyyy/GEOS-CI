@@ -41,12 +41,15 @@ public class AntarcticaController {
             if ("practiceModeTile".equals(tileId)) {
                 loadScene("/com/example/geoquestkidsexplorer/practicequizoceania.fxml", event);
             } else if ("testModeTile".equals(tileId)) {
+                // Nikki: insert testpage link and call openTestMethod
+                loadScene("/com/example/geoquestkidsexplorer/testModeAntarctica.fxml", event);
                 System.out.println("Test Mode Quiz selected!");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * A private helper method to load a new FXML scene and transition to it.

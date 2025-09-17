@@ -19,14 +19,52 @@ class LoginControllerTest {
 
     private final LoginController controller = new LoginController();
 
-    // Test for Errors when Fields are Blank
+    // valid username = no error
     @Test
-    void showErrorWhenFieldsAreBlank(){
+    void testValidUsername(){
         // Calls the public registrationInput from Login controller into error
-        String error = controller.validateRegistrationInputs(
-                "","","","","",""
+        String user = controller.validateRegistrationInputs(
+                "wizard01","wizard01@domain.com","Student","wizard",
+                "wizard","👧 Explorer Girl"
         );
-        assertEquals("Please fill in all the fields", error);
+        assertNull(user); // Asserts condition is null
+    }
+
+    //Blank username counts as missing field
+    @Test
+    void  testInvalidUsername(){
+        String err = controller.validateRegistrationInputs( "","user@domain.com",
+                "student","pass","pass","👧 Explorer Girl");
+        assertEquals("Username is blank or invalid", err);
+    }
+
+    // Valid email with valid everything means no error
+    @Test
+    void testCorrectEmail(){
+        String err = controller.validateRegistrationInputs(
+                "alice","alice@example.com","Student",
+                "pass123","pass123","👦 Explorer Boy"
+        );
+        assertNull(err);
+    }
+
+    // Blank email shows missing fields message
+    @Test
+    void testInvalidEmail(){
+            String err = controller.validateRegistrationInputs(
+                    "alice","", "Student",
+                    "pass123","pass123","👦 Explorer Boy"
+            );
+            assertEquals("Email is blank or invalid", err);
+    }
+
+    // No error shows for correct password matches
+    @Test
+    void testPasswordMatches(){
+        // Calls the public registrationInput from Login controller into error
+        String error = controller.validateRegistrationInputs("alice","a@example.com","Student",
+                "password123","password123","👧 Explorer Girl");
+        assertNull(error);
     }
 
     // Shows errors when passwords do not match
@@ -35,6 +73,16 @@ class LoginControllerTest {
         String error = controller.validateRegistrationInputs("alice","a@example.com","Student",
                 "password123","differrent","👧 Explorer Girl");
         assertEquals("Passwords do not match", error);
+    }
+
+    // Test for Errors when Fields are Blank
+    @Test
+    void showErrorWhenFieldsAreBlank(){
+        // Calls the public registrationInput from Login controller into error
+        String error = controller.validateRegistrationInputs(
+                "","","","","",""
+        );
+        assertEquals("Please fill in all the fields", error);
     }
 
     //In the registration, show error when an Avatar is not chosen

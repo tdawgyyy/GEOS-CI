@@ -1,8 +1,7 @@
 package com.example.geoquestkidsexplorer.controllers;
 
-/*import com.example.geoquestkidsexplorer.data.OceaniaQuizData;
-import com.example.geoquestkidsexplorer.models.QuizQuestions;*/
 import com.example.geoquestkidsexplorer.database.DatabaseManager;
+import com.example.geoquestkidsexplorer.models.QuizQuestions;
 import com.example.geoquestkidsexplorer.models.PracticeQuizQuestions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,41 +28,25 @@ import java.util.List;
 public class PracticeQuizOceaniaController {
 
     public static record EvalResult(boolean correct, int scoreDelta, String correctAnswer, String funFact){}
-
-    //@FXML private Label questionCounterLabel; //Need to remove this
     @FXML private Label questionNumberLabel;
     @FXML private Label scoreLabel;
-    //@FXML private Label countryCodeLabel;
     @FXML private ImageView countryImageView; // Add this FXML annotation for the ImageView
     @FXML private Label questionLabel;
     @FXML private ToggleGroup answerGroup;
     @FXML private RadioButton option1, option2, option3, option4;
     @FXML private VBox feedbackContainer;
-    //@FXML private VBox quizOptionsContainer; //Will be removed.
     @FXML private Label feedbackMessageLabel; //Change with feedbackMessageLabel.
     @FXML private Label funFactLabel;
     @FXML private Button nextQuestionButton;
-
-    //private List<QuizQuestions> questions; //Note: will delete if not nedded.
 
     // Change the type to hold the new PracticeQuizQuestion objects
     private List<PracticeQuizQuestions> questions = new ArrayList<>();
     private int currentQuestionIndex = 0;
     private int score = 0;
 
-    private ToggleGroup answerToggleGroup; //Will be remove
-
-    /*@FXML
-    public void initialize() {
-        questions = OceaniaQuizData.getPracticeQuestions();
-        Collections.shuffle(questions);
-        answerToggleGroup = new ToggleGroup();
-        loadQuestion();
-    }*/
-
     @FXML
     public void initialize() {
-        // --- FIX: Attach listener to the ToggleGroup once, at the beginning.
+        // Attach listener to the ToggleGroup once, at the beginning.
         // It's already linked from the FXML via the @FXML annotation.
         answerGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null && !((RadioButton) newValue).isDisable()) {
@@ -90,19 +73,17 @@ public class PracticeQuizOceaniaController {
 
     // FOR UNIT TESTING -------
     // I Only added this method to help with my uni testing and I didn't change anything in your code :)
-    public EvalResult evaluateSelection(String selectedAnswer, PracticeQuizQuestions q){
+    public EvalResult evaluateSelection(String selectedAnswer, QuizQuestions q){
         if(q == null) return new EvalResult(false, 0, "", "");
-        String correct = q.correctAnswer();
-        String fact = q.funFact() == null? "": q.funFact();
+
+        String correct = q.getCorrectAnswer();
+        String fact = q.getFunFact() == null? "": q.getFunFact();
+
         boolean isCorrect = selectedAnswer != null && selectedAnswer.equals(correct);
         int delta = isCorrect ? 1 : 0;
         return new EvalResult(isCorrect, delta, correct, fact);
     }
-    // Helper for testing
-    public static String formatCounter(int index0Based, int total){
-        return String.format("Question %d of %d", index0Based + 1, total);
-    }
-    //--------------------
+
 
     private void loadQuestion() {
         if (currentQuestionIndex < questions.size()) {
@@ -229,45 +210,6 @@ public class PracticeQuizOceaniaController {
         // Show feedback container and next button
         feedbackContainer.setVisible(true);
         nextQuestionButton.setVisible(true);
-
-        //This method is a helper for the modified practice mode quiz with images.
-        //PracticeQuizQuestions currentQuestion = questions.get(currentQuestionIndex);
-        //String correctAnswer = currentQuestion.correctAnswer();
-        //String funFact = currentQuestion.funFact();
-
-        // Disable click events on all tiles
-        //quizOptionsContainer.getChildren().forEach(node -> node.setDisable(true));
-
-        // Show fun fact now that an answer has been selected
-        /*funFactLabel.setText(funFact);
-        funFactLabel.setVisible(true);
-
-        // Check if the selected answer is correct and apply styling
-        if (selectedAnswer.equals(correctAnswer)) {
-            score++;
-            scoreLabel.setText(String.valueOf(score));
-            feedbackLabel.setText("Awesome! That's correct. 😊");
-            feedbackLabel.setTextFill(Color.web("#4caf50"));
-            selectedTile.getStyleClass().add("correct-answer");
-            selectedRadioButton.setSelected(true);
-        } else {
-            feedbackLabel.setText("Good try! Keep exploring. 😟");
-            feedbackLabel.setTextFill(Color.web("#f44336"));
-            selectedTile.getStyleClass().add("incorrect-answer");
-            selectedRadioButton.setSelected(true); // Select the incorrect radio button
-
-            // Find and highlight the correct tile as well
-            for (Node node : quizOptionsContainer.getChildren()) {
-                HBox tile = (HBox) node;
-                Label label = (Label) tile.getChildren().get(1);
-                if (label.getText().equals(correctAnswer)) {
-                    tile.getStyleClass().add("correct-answer");
-                    RadioButton correctRb = (RadioButton) tile.getChildren().get(0);
-                    correctRb.setSelected(true);
-                }
-            }
-        }
-        nextQuestionButton.setVisible(true);*/
     }
 
     private void resetStyles() {
