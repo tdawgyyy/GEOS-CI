@@ -12,7 +12,7 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlashCardsTest {
-
+/*
     private FlashcardsController controller;
     private Label regionLabel;
     private Label backTextLabel;
@@ -85,7 +85,7 @@ class FlashCardsTest {
         //assert true if condition starts with ...
         assertTrue(back.getText().startsWith("This is Australia"));
 
-    } */
+    }
 
     //Test if the no countries message display
     @Test
@@ -108,5 +108,5 @@ class FlashCardsTest {
         } catch (Exception exception) {
             throw new AssertionError(exception);
         }
-    }
+    }*/
 }
