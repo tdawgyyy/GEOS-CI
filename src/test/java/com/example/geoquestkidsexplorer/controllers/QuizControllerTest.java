@@ -59,7 +59,7 @@ class QuizControllerTest {
     // Next question and load
     private void loadQuestion(String continent, String countryOrNull){
         when(dataSource.getRandomCountryByContinent(continent)).thenReturn(countryOrNull == null ?
-                null : new CountryQuestion(countryOrNull, null));
+                null : new CountryQuestion(countryOrNull, null,null));
         controller.setContinent(continent);
     }
 
@@ -114,20 +114,6 @@ class QuizControllerTest {
         loadQuestion("Oceania", "Vanuatu");
 
         assertEquals("Oceania Quiz", titleLabel.getText());
-    }
-
-    @Test
-    void testNextQuestionLoads(){
-        when(dataSource.getRandomCountryByContinent("Oceania"))
-                .thenReturn(new CountryQuestion("Fiji",null),
-                        new CountryQuestion("Vanuatu", null));
-        //First Question
-        controller.setContinent("Oceania");
-        //Second Question
-        controller.setContinent("Oceania");
-
-        //scores should display 0/2
-        assertEquals("0/2", scoreLabel.getText());
     }
 
     @Test

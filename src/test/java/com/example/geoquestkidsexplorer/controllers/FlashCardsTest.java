@@ -14,6 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class FlashCardsTest {
 
     private FlashcardsController controller;
+    private Label regionLabel;
+    private Label backTextLabel;
+    private ImageView imageView;
+    private StackPane flashCardStack;
 
     // Run javafx application thread/toolkit
     @BeforeAll
@@ -25,7 +29,13 @@ class FlashCardsTest {
     @BeforeEach
     void setup() {
         controller = new FlashcardsController();
-        controller.testAttachNodes(new Label(), new ImageView(), new Label(), new StackPane());
+
+        //Create dummy UI nodes
+        regionLabel = new Label();
+        backTextLabel = new Label();
+        imageView = new ImageView();
+        flashCardStack = new StackPane();
+        controller.testAttachNodes(regionLabel, imageView, backTextLabel, flashCardStack);
     }
 
     // tiny 1x1 image using pure JavaFX (no AWT/ImageIO)

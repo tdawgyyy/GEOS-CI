@@ -6,8 +6,7 @@ import org.junit.jupiter.api.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DatabaseTest {
 
@@ -26,12 +25,5 @@ public class DatabaseTest {
         var real = new RealQuizDataSource();
         DatabaseManager.CountryQuestion continent = real.getRandomCountryByContinent("Oceania");
         assertNotNull(continent, "Expected Oceania to be in database");
-    }
-
-    @Test
-    void testIfQuestionDisplaysInPractiseQuiz(){
-        //should create new Interface
-        var question = new DatabaseManager();
-
     }
 }
