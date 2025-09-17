@@ -36,11 +36,11 @@ public class OceaniaController {
         Node clickedTile = (Node) event.getSource();
         String tileId = clickedTile.getId();
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD
         TestPageController controller = loader.getController();
         controller.setRegion("Oceania");
         controller.loadNextQuestion();
-=======
+=======*/
         try {
             // Use the ID to determine which game mode was selected and load the corresponding scene.
             if ("practiceModeTile".equals(tileId)) {
@@ -55,7 +55,7 @@ public class OceaniaController {
             e.printStackTrace();
         }
     }
->>>>>>> fef85a8158a0a260cc1e24e61721080b4d9854d4
+//>>>>>>> fef85a8158a0a260cc1e24e61721080b4d9854d4
 
     //Note: this is Aaliyah's method reference on how you can link your .fxml page for your test quiz pages for other countries.
     //Always create this method to other continent controller and adjust the name refences to call your correct .fxml for the continent.

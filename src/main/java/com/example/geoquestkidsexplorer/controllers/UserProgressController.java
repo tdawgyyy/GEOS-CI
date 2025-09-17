@@ -59,9 +59,9 @@ public class UserProgressController {
      * @param event The ActionEvent from the button click.
      * @throws IOException if the FXML file cannot be loaded.
      */
-    @FXML
+    /*@FXML
     public void handleLogoutButtonAction(ActionEvent event) throws IOException {
-        // Load the new FXML scene (e.g., MainMenu.fxml or Login.fxml)
+        // Load the new FXML scene (e.g., Login.fxml)
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/geoquestkidsexplorer/loginview.fxml"));
         Scene newScene = new Scene(root);
 
@@ -71,5 +71,19 @@ public class UserProgressController {
         // Set the new scene on the stage and show it
         stage.setScene(newScene);
         stage.show();
+    }*/
+
+    @FXML
+    private void handleLogoutButtonAction (ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/geoquestkidsexplorer/loginview.fxml"));
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

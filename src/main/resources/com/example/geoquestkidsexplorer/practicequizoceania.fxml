@@ -4,32 +4,37 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.image.ImageView?>
+
 <BorderPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.geoquestkidsexplorer.controllers.PracticeQuizOceaniaController">
     <!-- Top: Navigation Bar -->
     <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="65.0" style="-fx-background-color: #3b82f6; -fx-padding: 10 20;">
+        <HBox alignment="CENTER_LEFT" prefHeight="65.0" style="-fx-background-color: #3b82f6; -fx-padding: 10 100;">
             <children>
-                <Button onAction="#backToGameModes" style="-fx-background-color: #60a5fa; -fx-text-fill: white;
-                               -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 10 15;
-                               -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);"
-                        text="⬅️ Back" />
+                <Button mnemonicParsing="false" onAction="#backToGameModes" style="-fx-background-color: #60a5fa;
+                     -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 10 15;
+                     -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);" text="⬅️ Back to Africa Game Mode" />
                 <Region HBox.hgrow="ALWAYS" />
-                <Label fx:id="questionCounterLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;"
+                <Label fx:id="questionNumberLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 24px;"
                        text="Question 1 of 10" />
                 <Region HBox.hgrow="ALWAYS" />
                 <HBox alignment="CENTER" style="-fx-background-color: #60a5fa; -fx-background-radius: 25; -fx-padding: 10 15;
                         -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);">
                     <children>
                         <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;" text="Score: " />
-                        <Label fx:id="scoreLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;" text="0" />
+                        <Label fx:id="scoreLabel" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 20px;"
+                               text="0" />
                     </children>
                 </HBox>
             </children>
@@ -38,76 +43,149 @@
 
     <!-- Center: Main Content Container -->
     <center>
-        <VBox alignment="CENTER">
+        <VBox alignment="TOP_CENTER" prefHeight="695.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #ffffff;
+                    -fx-padding: 10px; -fx-background-radius: 20px; -fx-border-radius: 20px;
+                    -fx-effect: dropshadow(three-pass-light, rgba(0,0,0,0.2), 10, 0, 0, 0);">
             <children>
-                <VBox alignment="TOP_CENTER" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #f0f0f0;
+                <!-- Welcome Container -->
+                <VBox alignment="CENTER" prefHeight="50.0" prefWidth="1000.0" style="-fx-padding: 10px;">
+                    <children>
+                        <HBox alignment="CENTER" spacing="15.0">
+                            <children>
+                                <VBox alignment="CENTER_LEFT" spacing="15.0">
+                                    <children>
+                                        <Label text="Practice your knowledge with the Oceania Continent!">
+                                            <font>
+                                                <Font name="System Bold" size="25.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <!-- This HBox now arranges the content side-by-side -->
+                <HBox alignment="TOP_CENTER" prefHeight="445" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #f0f0f0;
                     -fx-padding: 20px; -fx-background-radius: 20px; -fx-border-radius: 20px;
                     -fx-effect: dropshadow(three-pass-light, rgba(0,0,0,0.2), 10, 0, 0, 0);">
                     <children>
-                        <!-- Image and Question Tile -->
-                        <VBox alignment="TOP_CENTER" prefWidth="700.0" spacing="15.0" style="-fx-background-color: #ffffff;
+                        <!-- Left Side: Question and Radio Buttons -->
+                        <VBox alignment="CENTER" spacing="15.0" HBox.hgrow="ALWAYS" style="-fx-background-color: #ffffff;
                             -fx-padding: 20px; -fx-background-radius: 15px; -fx-border-radius: 15px;
                             -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);">
                             <children>
-                                <!-- Placeholder for Country Image Tile -->
-                                <VBox fx:id="countryImageTile" alignment="CENTER" prefHeight="200.0" prefWidth="300.0"
-                                      style="-fx-background-color: #d1d5db; -fx-background-radius: 10px; -fx-border-radius: 10px;">
-                                    <children>
-                                        <ImageView fx:id="countryImageView" fitWidth="300" fitHeight="200" preserveRatio="true"
-                                                   style="-fx-background-color:#f3f4f6; -fx-padding:6; -fx-background-radius:8;">
-                                            <!--<font>
-                                                <Font name="System Bold" size="96.0" />
-                                            </font>-->
-                                        </ImageView>
-                                    </children>
-                                </VBox>
                                 <!-- Question Label -->
                                 <Label fx:id="questionLabel" text="What country is this?" wrapText="true">
                                     <font>
                                         <Font name="System Bold" size="24.0" />
                                     </font>
                                 </Label>
-                                <!-- New VBox to hold the quiz option tiles -->
-                                <VBox fx:id="quizOptionsContainer" spacing="15.0" />
+
+                                <!-- Radio Button Tiles Grid -->
+                                <GridPane fx:id="optionsGrid" alignment="CENTER" hgap="10.0" vgap="10.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <VBox.margin>
+                                        <Insets top="10.0" />
+                                    </VBox.margin>
+                                    <children>
+                                        <VBox fx:id="option1Tile" styleClass="option-tile" onMouseClicked="#handleTileSelection">
+                                            <children>
+                                                <RadioButton fx:id="option1" mnemonicParsing="false" text="RadioButton">
+                                                    <toggleGroup>
+                                                        <ToggleGroup fx:id="answerGroup" />
+                                                    </toggleGroup>
+                                                </RadioButton>
+                                            </children>
+                                        </VBox>
+                                        <VBox fx:id="option2Tile" styleClass="option-tile" onMouseClicked="#handleTileSelection"
+                                              GridPane.columnIndex="1">
+                                            <children>
+                                                <RadioButton fx:id="option2" mnemonicParsing="false" text="RadioButton"
+                                                             toggleGroup="$answerGroup" />
+                                            </children>
+                                        </VBox>
+                                        <VBox fx:id="option3Tile" styleClass="option-tile" onMouseClicked="#handleTileSelection"
+                                              GridPane.rowIndex="1">
+                                            <children>
+                                                <RadioButton fx:id="option3" mnemonicParsing="false" text="RadioButton"
+                                                             toggleGroup="$answerGroup" />
+                                            </children>
+                                        </VBox>
+                                        <VBox fx:id="option4Tile" styleClass="option-tile" onMouseClicked="#handleTileSelection"
+                                              GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                            <children>
+                                                <RadioButton fx:id="option4" mnemonicParsing="false" text="RadioButton"
+                                                             toggleGroup="$answerGroup" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </GridPane>
                             </children>
                         </VBox>
 
-                        <!-- Feedback and Fun Facts Tile -->
-                        <VBox alignment="CENTER" prefWidth="700.0" spacing="10.0" style="-fx-background-color: #e0e0e0;
-                            -fx-padding: 15px; -fx-background-radius: 15px; -fx-border-radius: 15px;
-                            -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);">
+                        <!-- Right Side: Image Container -->
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS" style="-fx-background-color: #d1d5db; -fx-background-radius: 10px; -fx-border-radius: 10px;">
                             <children>
-                                <Label fx:id="feedbackLabel" alignment="CENTER" text="" textFill="#4caf50">
+                                <!-- The ImageView is now larger and centered in its new container. -->
+                                <ImageView fx:id="countryImageView" fitHeight="440.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Feedback and Fun Facts Container (hidden initially) -->
+                <VBox fx:id="feedbackContainer" alignment="CENTER" prefWidth="800.0" spacing="10.0"
+                      style="-fx-background-color: #e0e0e0; -fx-padding: 15px; -fx-background-radius: 15; -fx-padding: 15px;"
+                      visible="false">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="35.0" right="35.0" top="10.0" />
+                    </VBox.margin>
+                    <children>
+                        <Label fx:id="feedbackMessageLabel" text="Your feedback will appear here.">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <HBox spacing="5.0">
+                            <children>
+                                <Label alignment="CENTER" text="Fun Facts:">
                                     <font>
-                                        <Font name="System Bold" size="24.0" />
+                                        <Font name="System Bold" size="18.0" />
                                     </font>
                                 </Label>
-                                <HBox spacing="5.0">
-                                    <children>
-                                        <Label text="Fun Facts:">
-                                            <font>
-                                                <Font name="System Bold" size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="funFactLabel" text="" wrapText="true">
-                                            <font>
-                                                <Font size="16.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </HBox>
+                                <Label fx:id="funFactLabel" text="" wrapText="true">
+                                    <font>
+                                        <Font size="16.0" />
+                                    </font>
+                                </Label>
                             </children>
-                        </VBox>
-
-                        <!-- Next Question Button -->
-                        <Button fx:id="nextQuestionButton" onAction="#nextQuestion" prefWidth="200.0" style="-fx-background-color: #4caf50;
-                            -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px; -fx-background-radius: 5px;"
-                                text="Next Question" visible="false" />
+                        </HBox>
                     </children>
                 </VBox>
+
+                <!-- Next Question Button (hidden initially) -->
+                <Button fx:id="nextQuestionButton" mnemonicParsing="false" onAction="#handleNextQuestion"
+                        prefHeight="40.0" prefWidth="200.0"
+                        style="-fx-background-color: #4CAF50; -fx-background-radius: 25;"
+                        text="Next Question" textFill="WHITE" visible="false">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="20.0" />
+                    </VBox.margin>
+                </Button>
             </children>
             <BorderPane.margin>
-                <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
             </BorderPane.margin>
         </VBox>
     </center>

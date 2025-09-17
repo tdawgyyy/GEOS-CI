@@ -25,9 +25,6 @@
                 <!-- Navigation Bar -->
                 <HBox alignment="CENTER" prefHeight="65.0" prefWidth="1150.0" style="-fx-background-color: #3b82f6; -fx-padding: 10 100;">
                     <children>
-                        <!--                        <Button mnemonicParsing="false" onAction="#backToDashboards" style="-fx-background-color: #60a5fa;-->
-                        <!--                        -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 10 15;-->
-                        <!--                        -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);" text="🏠 Back to Dashboards" />-->
                         <Region HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER" spacing="10.0">
                             <children>

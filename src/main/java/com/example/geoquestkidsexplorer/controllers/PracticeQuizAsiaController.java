@@ -1,6 +1,5 @@
 package com.example.geoquestkidsexplorer.controllers;
 
-import com.example.geoquestkidsexplorer.data.AfricaQuizData;
 import com.example.geoquestkidsexplorer.data.AsiaQuizData;
 import com.example.geoquestkidsexplorer.models.QuizQuestions;
 import javafx.event.ActionEvent;
