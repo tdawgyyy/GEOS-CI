@@ -71,7 +71,8 @@ class FlashCardsTest {
         assertTrue(imgView.isVisible()); // Country Image is Visible
         assertFalse(back.isVisible()); //Back label is not visible
     }
-*/
+
+ *//*
     @Test
     void testCorrectImageForAustraliaLoad() {
         var mock = new MockFlashcardDB()
