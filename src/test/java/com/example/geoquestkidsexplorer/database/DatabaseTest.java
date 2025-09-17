@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DatabaseTest {
 
@@ -15,5 +16,22 @@ public class DatabaseTest {
     public void testConnection() throws SQLException {
         Connection conn = DatabaseManager.getConnection();
         assertEquals(true, conn != null);
+    }
+
+
+    // Check If Oceania is stored in database
+    @Test
+    void testIfRealDatabaseHasOceania(){
+        // gates to DatabaseManager + geoquest
+        var real = new RealQuizDataSource();
+        DatabaseManager.CountryQuestion continent = real.getRandomCountryByContinent("Oceania");
+        assertNotNull(continent, "Expected Oceania to be in database");
+    }
+
+    @Test
+    void testIfQuestionDisplaysInPractiseQuiz(){
+        //should create new Interface
+        var question = new DatabaseManager();
+
     }
 }
