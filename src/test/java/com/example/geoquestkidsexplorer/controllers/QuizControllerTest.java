@@ -30,7 +30,7 @@ class QuizControllerTest {
     private Label titleLabel;
     private Label scoreLabel;
     private Label feedbackLabel;
-    private ImageView countryImageView;
+    //private ImageView countryImageView;
     private TextField answerField;
 
     @BeforeAll
@@ -49,11 +49,11 @@ class QuizControllerTest {
         titleLabel = new Label();
         scoreLabel = new Label();
         feedbackLabel = new Label();
-        countryImageView = new ImageView();
+        ImageView countryImageView = new ImageView();
         answerField = new TextField();
 
         controller.setDataSource(dataSource);
-        controller.uiForTest(titleLabel, scoreLabel, feedbackLabel, countryImageView, answerField);
+        controller.uiForTest(titleLabel, scoreLabel, feedbackLabel, countryImageView ,answerField);
     }
 
     // Next question and load
