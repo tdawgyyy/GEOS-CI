@@ -1,7 +1,6 @@
 package com.example.geoquestkidsexplorer.controllers;
 
 import com.example.geoquestkidsexplorer.database.DatabaseManager;
-import com.example.geoquestkidsexplorer.models.ValueButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 /* Note
@@ -40,7 +38,7 @@ Ends with a summary.
 
 Disables input after the test is over.*/
 
-public class TestPageController {
+public class TestPageControllerDraft {
 
     //FXML fields to fetch display elements
     @FXML

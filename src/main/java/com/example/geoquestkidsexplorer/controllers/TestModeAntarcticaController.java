@@ -1,3 +1,4 @@
+//Import packages:
 package com.example.geoquestkidsexplorer.controllers;
 
 import javafx.event.ActionEvent;
@@ -12,15 +13,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AsiaController {
+public class TestModeAntarcticaController {
+
+    //Goes back to homepage with all the continents.
     @FXML
     private void backToContinents(ActionEvent event) {
         try {
-            // Load the StartAdventure.fxml file
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/geoquestkidsexplorer/homepage.fxml"));
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("/com/example/geoquestkidsexplorer/homepage.fxml")
+            );
             Scene scene = new Scene(root);
-
-            // Get the current stage and set the new scene
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -29,24 +31,34 @@ public class AsiaController {
         }
     }
 
+    //
     @FXML
     private void handleGameModeClick(MouseEvent event) {
-        // Get the source of the click, which is the VBox tile.
-        Node clickedTile = (Node) event.getSource();
-        String tileId = clickedTile.getId();
+        // Be robust if a child node inside the tile was clicked
+        Node n = (Node) event.getTarget();
+        while (n != null && n.getId() == null) n = n.getParent();
+        String tileId = (n != null) ? n.getId() : null;
+        if (tileId == null) {
+            System.out.println("handleGameModeClick: no tile id found");
+            return;
+        }
 
         try {
-            // Use the ID to determine which game mode was selected and load the corresponding scene.
             if ("practiceModeTile".equals(tileId)) {
                 loadScene("/com/example/geoquestkidsexplorer/practicequizoceania.fxml", event);
+
             } else if ("testModeTile".equals(tileId)) {
-                // Nikki: insert testpage link and call openTestMethod
-                System.out.println("Test Mode Quiz selected!");
+                // 👉 Open the quiz in the SAME window
+                openQuiz(event, "Oceania");
+            } else {
+                System.out.println("handleGameModeClick: unknown tile id " + tileId);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    /** Open quiz_view.fxml in the SAME window (no new Stage) */
     private void openQuiz(Event event, String continent) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/com/example/geoquestkidsexplorer/quiz_view.fxml")
@@ -71,14 +83,39 @@ public class AsiaController {
 
         stage.show();
     }
-    /**
-     * A private helper method to load a new FXML scene and transition to it.
-     * This version is more flexible and can accept any type of Event.
-     *
-     * @param fxmlPath The path to the FXML file to load.
-     * @param event The event that triggered the action.
-     * @throws IOException If the FXML file cannot be loaded.
-     */
+
+    // (unchanged) Opens country test page in a new window — not used by quiz branch
+    private void openTestPage(String continent, String country) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/geoquestkidsexplorer/country_image.fxml")
+        );
+        Parent root = loader.load();
+
+        CountryImageController controller = loader.getController();
+        Stage testStage = new Stage();
+        testStage.setTitle(continent + " – " + country);
+        testStage.setScene(new Scene(root, 600, 400));
+        controller.setCountry(country, testStage);
+
+        testStage.show();
+    }
+
+    @FXML
+    private void handleFlashcards(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/example/geoquestkidsexplorer/FlashcardsPage.fxml")
+        );
+        Parent root = loader.load();
+
+        FlashcardsController controller = loader.getController();
+        controller.setRegion("Oceania");
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(root);
+        stage.show();
+    }
+
+    /** Helper: load an FXML into the current window */
     private void loadScene(String fxmlPath, Event event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
         Scene scene = new Scene(root);
@@ -86,4 +123,8 @@ public class AsiaController {
         stage.setScene(scene);
         stage.show();
     }
+
+
+
+
 }
