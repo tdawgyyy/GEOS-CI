@@ -1,7 +1,8 @@
 package com.example.geoquestkidsexplorer.controllers;
 
-import com.example.geoquestkidsexplorer.database.DatabaseManager;
 import com.example.geoquestkidsexplorer.database.DatabaseManager.CountryQuestion;
+import com.example.geoquestkidsexplorer.database.QuizDataSource;
+import com.example.geoquestkidsexplorer.database.RealQuizDataSource;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -22,11 +23,27 @@ public class QuizController {
     @FXML private ImageView countryImageView;
     @FXML private TextField answerField;
 
+    // New dependency that defaults real implementation
+    private QuizDataSource dataSource = new RealQuizDataSource();
+    public void setDataSource(QuizDataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     private String continent = "Oceania";  // default; set via setContinent(...)
     private String currentAnswer;          // country name to check against
     private int totalAsked = 0;
     private int totalCorrect = 0;
     private Stage stage;                   // optional: for Back
+
+    // For testing (This allows unit tests to implement fake UI nodes
+    // Without FXML or reflection || Package-private
+    void uiForTest(Label title, Label score, Label feedback, ImageView imageView, TextField answer){
+        this.titleLabel = title;
+        this.scoreLabel = score;
+        this.feedbackLabel = feedback;
+        this.countryImageView = imageView;
+        this.answerField = answer;
+    }
 
     /** Call this immediately after loading the FXML. */
     public void setContinent(String continent) {
@@ -40,12 +57,14 @@ public class QuizController {
         this.stage = stage;
     }
 
+    // TOri - i changed it to protected for unit test, but might need to discuss
     @FXML
-    private void handleSubmit(ActionEvent e) {
+    protected void handleSubmit(ActionEvent e) {
         if (currentAnswer == null || currentAnswer.isBlank()) return;
 
-        String user = DatabaseManager.normalize(answerField.getText());
-        String target = DatabaseManager.normalize(currentAnswer);
+        // Changed it to wire into interface but still calls DatabaseManager via RealQuizData - Tori
+        String user = dataSource.normalise(answerField.getText());
+        String target = dataSource.normalise(currentAnswer);
 
         if (user.equals(target)) {
             totalCorrect++;
@@ -82,7 +101,9 @@ public class QuizController {
         feedbackLabel.setText("");
         answerField.clear();
 
-        CountryQuestion q = DatabaseManager.getRandomCountryByContinent(continent);
+        // Changed DatabaseManger. to dataSource.
+        //Does the same thing, just wiring through the RealQuizData - Tori
+        CountryQuestion q = dataSource.getRandomCountryByContinent(continent);
         totalAsked++;
 
         if (q == null) {
