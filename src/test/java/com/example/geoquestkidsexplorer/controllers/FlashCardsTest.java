@@ -72,6 +72,7 @@ class FlashCardsTest {
         assertFalse(back.isVisible()); //Back label is not visible
     }
 
+ *//*
     @Test
     void testCorrectImageForAustraliaLoad() {
         var mock = new MockFlashcardDB()
