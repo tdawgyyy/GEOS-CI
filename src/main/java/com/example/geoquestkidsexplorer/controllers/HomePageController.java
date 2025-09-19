@@ -106,7 +106,7 @@ public class HomePageController {
 
     @FXML
     private void startNewAdventure(ActionEvent event) {
-        openQuiz("Oceania"); // or choose based on the user’s level/last choice
+        openQuiz("South America"); // or choose based on the user’s level/last choice
     }
 
 

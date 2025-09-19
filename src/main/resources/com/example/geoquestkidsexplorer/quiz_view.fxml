@@ -42,5 +42,9 @@
 
         <Label fx:id="feedbackLabel" style="-fx-font-size:14; -fx-text-fill:#444;" />
 
+        <Button onAction="#backToGameModes" style="-fx-background-color: #60a5fa; -fx-text-fill: white;
+                               -fx-font-weight: bold; -fx-background-radius: 25; -fx-padding: 10 15;
+                               -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);"
+                text="⬅️ Back" />
     </children>
 </VBox>

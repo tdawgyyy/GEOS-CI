@@ -293,16 +293,18 @@ public class DatabaseManager {
     public static class CountryQuestion {
         public final String countryName;
         public final Image image;          // JavaFX image to show
-        public CountryQuestion(String countryName, Image image) {
+        public final String hints;
+        public CountryQuestion(String countryName, Image image, String hints) {
             this.countryName = countryName;
             this.image = image;
+            this.hints = hints;
         }
     }
 
     /** Get a random country+image from a given continent. */
     public static CountryQuestion getRandomCountryByContinent(String continent) {
         final String sql = """
-        SELECT country, country_picture
+        SELECT country, country_picture, hints
         FROM countries
         WHERE continent = ?
         ORDER BY RANDOM()
@@ -315,11 +317,12 @@ public class DatabaseManager {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     String country = rs.getString("country");
+                    String hints = rs.getString ("hints");
                     byte[] bytes = rs.getBytes("country_picture");
                     Image img = (bytes != null && bytes.length > 0)
                             ? new Image(new ByteArrayInputStream(bytes))
                             : null;
-                    return new CountryQuestion(country, img);
+                    return new CountryQuestion(country, img, hints);
                 }
             }
         } catch (SQLException e) {
@@ -347,6 +350,7 @@ public class DatabaseManager {
 
         String correctAnswer = correctQuestion.countryName;
         Image countryImage = correctQuestion.image;
+        String hints = correctQuestion.hints;
 
         //Get 3 random incorrect country names to use as distractors
         List<String> choices = getNRandomCountriesByContinent(continent, 3, correctAnswer);
@@ -358,7 +362,7 @@ public class DatabaseManager {
         //(Optional) Create a simple question text and fun fact.
         // You can hard-code a generic question or use a more sophisticated method.
         String questionText = "Which country is this?";
-        String funFact = "This is " + correctAnswer + ". A cool fact about this country is that its flag has a unique design.";
+        String funFact = "This is " + correctAnswer + ". " + hints;
 
         return new PracticeQuizQuestions(questionText, choices, correctAnswer, funFact, countryImage);
     }

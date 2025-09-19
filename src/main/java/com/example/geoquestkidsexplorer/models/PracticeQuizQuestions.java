@@ -9,4 +9,14 @@ public record PracticeQuizQuestions(
         String correctAnswer,
         String funFact,
         Image countryImage
-) {}
+) {
+    public List<String> getChoices() {
+        return choices;
+    }
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+    public String getFunFact() {
+        return funFact;
+    }
+}
