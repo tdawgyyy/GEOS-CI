@@ -51,7 +51,6 @@ public class UserProgressController {
         // Update the progress labels.
         continentsUnlockedTileLabel.setText("" + continentsUnlocked);
     }
-
     /**
      * Handles the logout action.
      * It switches the scene back to the main menu or login screen.
